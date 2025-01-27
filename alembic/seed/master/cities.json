@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "name": "Tokyo",
+        "postal_code": "100-0001"
+    },
+    {
+        "id": 2,
+        "name": "Osaka",
+        "postal_code": "530-0001"
+    },
+    {
+        "id": 3,
+        "name": "Yokohama",
+        "postal_code": "231-0001"
+    },
+    {
+        "id": 4,
+        "name": "Nagoya",
+        "postal_code": "460-0001"
+    },
+    {
+        "id": 5,
+        "name": "Sapporo",
+        "postal_code": "060-0001"
+    },
+    {
+        "id": 6,
+        "name": "Fukuoka",
+        "postal_code": "810-0001"
+    },
+    {
+        "id": 7,
+        "name": "Kobe",
+        "postal_code": "650-0001"
+    },
+    {
+        "id": 8,
+        "name": "Kyoto",
+        "postal_code": "600-0001"
+    },
+    {
+        "id": 9,
+        "name": "Kawasaki",
+        "postal_code": "210-0001"
+    },
+    {
+        "id": 10,
+        "name": "Saitama",
+        "postal_code": "330-0001"
+    }
+]

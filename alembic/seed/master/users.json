@@ -1,0 +1,43 @@
+[
+    {
+      "id": 1,
+      "username": "admin",
+      "first_name": "Admin",
+      "last_name": "Admin",
+      "password": "admin",
+      "first_name_kana": "ジョン",
+      "last_name_kana": "ドウ",
+      "primary_store_id": 1,
+      "auth_groups": [
+        {
+            "store_id": 1, 
+            "auth_group_id": 1
+        },
+        {
+            "store_id": 2, 
+            "auth_group_id": 2
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "username": "staff",
+      "first_name": "Staff",
+      "last_name": "Staff",
+      "password": "staff",
+      "first_name_kana": "ジェーン",
+      "last_name_kana": "スミス",
+      "primary_store_id": 2,
+      "auth_groups": [
+        {
+            "store_id": 1, 
+            "auth_group_id": 2
+        },
+        {
+            "store_id": 2, 
+            "auth_group_id": 1
+        }
+      ]
+    }
+  ]
+  

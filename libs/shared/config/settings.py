@@ -1,28 +1,28 @@
 from enum import Enum
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
 class AppEnvironment(str, Enum):
     DEVELOPMENT = "development"
     STAGING = "staging"
     PRODUCTION = "production"
+
 
 class Stage(str, Enum):
     LOCAL = "LOCAL"
     DEVELOPMENT = "DEVELOPMENT"
     PRODUCTION = "PRODUCTION"
 
+
 class Settings(BaseSettings):
     # Use SettingsConfigDict to configure environment variable loading
-    model_config = SettingsConfigDict(
-        case_sensitive=True,
-        extra="ignore"
-    )
+    model_config = SettingsConfigDict(case_sensitive=True, extra="ignore")
 
     # Application Configuration
     APP_ENV: AppEnvironment
     STAGE: Stage
     LOG_LEVEL: str
-    
+
     # Database Configuration
     POSTGRES_WRITE_HOST: str
     POSTGRES_READ_HOST: str
@@ -31,14 +31,14 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
     POSTGRES_SCHEMA: str
-    
+
     # Redis Configuration
     REDIS_URL: str
     REDIS_PORT: int
-    
+
     # Authentication Service
     AUTH_URL: str
-    
+
     # JWT Configuration
     ACCESS_TOKEN_EXPIRES_AT: int
     REFRESH_TOKEN_EXPIRES_AT: int
@@ -59,6 +59,7 @@ class Settings(BaseSettings):
     def REDIS_CONNECTION_URL(self) -> str:
         """Generate Redis connection URL"""
         return f"redis://{self.REDIS_URL}:{self.REDIS_PORT}"
+
 
 # Initialize settings
 try:

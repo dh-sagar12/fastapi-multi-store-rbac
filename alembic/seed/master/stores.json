@@ -1,0 +1,25 @@
+[
+    {
+      "id": 1,
+      "name": "HamroMart Kathmandu",
+      "full_name": "HamroMart Smarmart Kathmandu",
+      "postal_code": null,
+      "phone_number": null,
+      "city_id": 1,
+      "prefecture": null,
+      "street": null,
+      "building_name": null
+    },
+    {
+      "id": 2,
+      "name": "HamroMart Butwal",
+      "full_name": "HamroMart Smartmart Butwal",
+      "postal_code": null,
+      "phone_number": null,
+      "city_id": 2,
+      "prefecture": null,
+      "street": null,
+      "building_name": null
+    }
+  ]
+  

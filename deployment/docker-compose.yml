@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   postgres:
       image: postgres:15
-      container_name: postgres_beniya
+      container_name: postgres
       environment:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=mysecretpassword
@@ -14,7 +12,7 @@ services:
       ports:
         - "5430:5432"
       networks:
-        - beniya
+        - project
       healthcheck:
         test: ["CMD-SHELL", "pg_isready -U postgres"]
         interval: 10s
@@ -22,7 +20,7 @@ services:
         retries: 5
   
   auth:
-    container_name: beniya_auth
+    container_name: auth
     build:
       context: ..
       dockerfile: deployment/Dockerfile_auth
@@ -49,13 +47,13 @@ services:
       - JWT_ALGORITHM=HS256
       - JWT_SECRET=90ab95d8b26d2e84c8sk3207393c36b1d46276a0e76b2a7fc0390ee7d9afab21
     networks:
-      - beniya
+      - project
     volumes:
       - ../:/app
     command: poetry run uvicorn services.src_auth.main:app --host 0.0.0.0 --port 8001 --reload
   
   admin:
-    container_name: beniya_admin
+    container_name: admin
     build:
       context: ..
       dockerfile: deployment/Dockerfile_admin
@@ -83,14 +81,14 @@ services:
       - JWT_SECRET=90ab95d8b26d2e84c8sk3207393c36b1d46276a0e76b2a7fc0390ee7d9afab21
 
     networks:
-      - beniya
+      - project
     volumes:
       - ../:/app
-    command: poetry run uvicorn services.src_auth.main:app --host 0.0.0.0 --port 8000 --reload
+    command: poetry run uvicorn services.src_admin.main:app --host 0.0.0.0 --port 8000 --reload
   
 
 networks:
-  beniya:
+  project:
     driver: bridge
 
 volumes:
