@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "src_auth"
+version = "0.1.0"
+description = "Auth Service for SmartMart"
+authors = ["cloco-sagar",]
+
+[tool.ruff]
+select = ["E", "F", "W", "C"]
+ignore = ["E501"]  # Ignore long-line errors since Black handles it
+target-version = "py312"
+exclude = [
+    "migrations/*",
+    "tests/*",
+    "libs/shared/*"
+]
+
+[tool.ruff.isort]
+case-sensitive = true
+force-single-line = true
+section-order = ["future", "standard-library", "first-party", "third-party", "local-folder"]
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.7"
+uvicorn = "^0.34.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.1"]
+build-backend = "poetry.core.masonry.api"

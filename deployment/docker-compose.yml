@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  postgres:
+      image: postgres:15
+      container_name: postgres_beniya
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=mysecretpassword
+        - POSTGRES_DB=mydatabase
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+
+      ports:
+        - "5430:5432"
+      networks:
+        - beniya
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U postgres"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+  
+  auth:
+    container_name: beniya_auth
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile_auth
+    ports:
+      - "8001:8001"
+    depends_on:
+      - postgres
+    environment:
+      - APP_ENV=development
+      - STAGE=LOCAL
+      - LOG_LEVEL=DEBUG
+      - POSTGRES_WRITE_HOST=postgres
+      - POSTGRES_READ_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_SCHEMA=public
+      - REDIS_URL=redis
+      - REDIS_PORT=6379
+      - AUTH_URL=http://localhost:8001
+      - ACCESS_TOKEN_EXPIRES_AT=30
+      - REFRESH_TOKEN_EXPIRES_AT=600
+      - JWT_ALGORITHM=HS256
+      - JWT_SECRET=90ab95d8b26d2e84c8sk3207393c36b1d46276a0e76b2a7fc0390ee7d9afab21
+    networks:
+      - beniya
+    volumes:
+      - ../:/app
+    command: poetry run uvicorn services.src_auth.main:app --host 0.0.0.0 --port 8001 --reload
+  
+  admin:
+    container_name: beniya_admin
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile_admin
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      - APP_ENV=development
+      - STAGE=LOCAL
+      - LOG_LEVEL=DEBUG
+      - POSTGRES_WRITE_HOST=postgres
+      - POSTGRES_READ_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_SCHEMA=public
+      - REDIS_URL=redis
+      - REDIS_PORT=6379
+      - AUTH_URL=http://localhost:8001
+      - ACCESS_TOKEN_EXPIRES_AT=30
+      - REFRESH_TOKEN_EXPIRES_AT=600
+      - JWT_ALGORITHM=HS256
+      - JWT_SECRET=90ab95d8b26d2e84c8sk3207393c36b1d46276a0e76b2a7fc0390ee7d9afab21
+
+    networks:
+      - beniya
+    volumes:
+      - ../:/app
+    command: poetry run uvicorn services.src_auth.main:app --host 0.0.0.0 --port 8000 --reload
+  
+
+networks:
+  beniya:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  
